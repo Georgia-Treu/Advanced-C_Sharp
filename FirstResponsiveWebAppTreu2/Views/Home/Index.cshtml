@@ -1,0 +1,37 @@
+﻿@model FirstResponsiveWebAppTreu2.Models.FirstResponsiveWebAppModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+</head>
+<body>
+    <h1>Age Calculator</h1>
+    <form asp-action="Index" method="post">
+        <div asp-validation-summary="All"></div>
+        <div>
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name"/>
+        </div>
+        <div>
+            <label asp-for="BirthYear">Birth Year</label>
+            <input asp-for="BirthYear" />
+        </div>
+        <div>
+            <label>Name Entered:</label>
+            <input value="@ViewBag.NameEntered" readonly>
+        </div>
+        <div>
+            <label>Age as of 12/31/26:</label>
+            <input value="@ViewBag.AgeEndYear" readonly>
+        </div>
+        <button type="submit">Show Name Entered and Age</button>
+        <a asp-action="Index">Clear</a>
+    </form>
+</body>
+</html>
