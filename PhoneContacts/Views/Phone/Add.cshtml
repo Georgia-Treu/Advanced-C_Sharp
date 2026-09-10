@@ -1,0 +1,35 @@
+﻿@model Phone
+@{
+    ViewData["Title"] = "Add Contact";
+}
+<h2>Add New Contact</h2>
+
+<form asp-action="Add" method="post">
+    <div class="mb-3">
+        <label asp-for="Name" class="form=label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form=label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address" class="form=label"></label>
+        <input asp-for="Address" class="form-control" />        
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Note" class="form=label"></label>
+        <input asp-for="Note" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+    <a asp-controller="Phone" asp-action="List" class="btn btn-secondary">
+        Cancel
+    </a>    
+</form>

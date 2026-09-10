@@ -1,0 +1,43 @@
+﻿
+@model List<Phone>
+@{
+    ViewData["Title"] = "My Contacts";
+}
+
+<h2>My Contacts</h2>
+
+<div class="mb-3">
+    <a asp-controller="Phone" asp-action="Add" class="btn btn-success">
+        Add New Contact
+    </a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Note</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model)
+        {
+            <tr>
+                <td>@contact.Name</td>
+                <td>@contact.PhoneNumber</td>
+                <td>@contact.Address</td>
+                <td>@contact.Note</td>
+                <td>
+                    <a asp-controller="Phone" asp-action="Delete"
+                       asp-route-id="@contact.ContactId"
+                       class="btn btn-danger btn-sm">
+                       Delete
+                   </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+﻿@model Phone
+@{
+    ViewData["Title"] = "Delete Movie";
+}
+<h2>Confirm Deletion</h2>
+
+<h3>@Model.Name</h3>
+<p>Phone: @Model.PhoneNumber</p>
+<p>Address: @Model.Address</p>
+<p>Note: @Model.Note</p>
+
+<form asp-action="Delete" method="post">
+
+    <input type="hidden" asp-for="ContactId" />
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-controller="Phone" asp-action="List"
+       class="btn btn-secondary">Cancel</a>
+</form>
