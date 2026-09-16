@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../UnitTestResponsiveWebApp/UnitTestResponsiveWebApp.csproj" Id="defccb84-4f2c-48ec-b7fe-3f09688bbee4" />
   <Project Path="FirstResponsiveWebAppTreu2.csproj" />
 </Solution>
