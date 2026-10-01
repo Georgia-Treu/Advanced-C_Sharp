@@ -25,5 +25,22 @@ namespace FirstResponsiveWebAppTreu2.Controllers
 
             return View(model);
         }
+
+        //attribute routing added for About action
+        [Route("About")]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Custom(int id, int num)
+        {
+            return Content($"HomeController Custom action: id=" + id + " page=" + num);
+        }
     }
 }

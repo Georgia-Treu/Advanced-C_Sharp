@@ -21,14 +21,31 @@ namespace FirstResponsiveWebAppTreu2
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseStaticFiles();
             app.UseAuthorization();
-
             app.MapStaticAssets();
+
+           //Ch 6 routing patterns addition
+            app.MapControllerRoute(
+                name: "paging_and_sorting",
+                pattern: "{controller}/{action}/{id}/page{num}/sort-by-{sortby}");
+
+            app.MapControllerRoute(
+                name: "paging",
+                pattern: "{controller}/{action}/{id}/page{num}");
+
+            app.MapAreaControllerRoute(
+                name: "admin",
+                areaName: "Admin",
+                pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+            // end of ch 6 addition
+            
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+                .WithStaticAssets();       
+
 
             app.Run();
         }
