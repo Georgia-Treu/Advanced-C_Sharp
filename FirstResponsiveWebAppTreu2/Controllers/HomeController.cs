@@ -9,22 +9,9 @@ namespace FirstResponsiveWebAppTreu2.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.WelcomeMessage = "Welcome to my C# class Web App";
             return View();
-        }
-
-        [HttpPost]
-        public IActionResult Index(FirstResponsiveWebAppModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                ViewBag.AgeEndYear = model.AgeThisYear();
-                ViewBag.NameEntered = model.Name;
-
-                return View(model);
-            }
-
-            return View(model);
-        }
+        }       
 
         //attribute routing added for About action
         [Route("About")]

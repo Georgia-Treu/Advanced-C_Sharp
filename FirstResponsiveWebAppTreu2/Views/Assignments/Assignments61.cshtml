@@ -1,0 +1,24 @@
+﻿@model FirstResponsiveWebAppTreu2.Models.StudentViewModel
+
+<h2>Assignment 6.1</h2>
+
+@if (Model.AccessLevel < 2)
+{
+    <p> You do not have sufficient access to veiw this data.</p>
+}
+else if (Model.AccessLevel > 2 && Model.AccessLevel < 8)
+{
+    @foreach (var student in Model.Students)
+    {
+        @Html.Partial("_StudentBasic", student)
+    }
+}
+else if (Model.AccessLevel >= 8)
+{
+    <h3> Hello Admin</h3>
+
+    @foreach (var student in Model.Students)
+    {
+        @Html.Partial("_StudentFull", student)
+    }
+}
