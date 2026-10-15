@@ -1,0 +1,64 @@
+﻿@model OlympicGamesWebApp.Models.CountriesViewModel
+
+@{
+    ViewData["Title"] = "Olympic Games Countries";
+}
+
+<div class="row">
+    <div class="col-3">
+        <h4>Games</h4>
+        <div class="list-group">
+            <a asp-action="Index"
+               asp-route-game="all"
+               asp-route-category="@Model.ActiveCategory"
+               class="list-group-item @Model.CheckActiveGame("all")">
+                ALL
+            </a>
+            @foreach (var g in Model.Games)
+            {
+                <a asp-action="Index"
+                   asp-route-game="@g.GameID"
+                   asp-route-category="@Model.ActiveCategory"
+                   class="list-group-item @Model.CheckActiveGame(g.GameID)">
+                    @g.Name
+                </a>
+            }
+        </div>
+
+        <h4 class="mt-4">Categories</h4>
+        <div class="list-group">
+            <a asp-action="Index"
+               asp-route-game="@Model.ActiveGame"
+               asp-route-category="all"
+               class="list-group-item @Model.CheckActiveCategory("all")">
+                ALL
+            </a>
+            @foreach (var c in Model.Categories)
+            {
+                <a asp-action="Index"
+                   asp-route-game="@Model.ActiveGame"
+                   asp-route-category="@c.CategoryID"
+                   class="list-group-item @Model.CheckActiveCategory(c.CategoryID)">
+                    @c.Name
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="col-9">
+        <h2>Countries</h2>
+        <div class="d-flex flex-wrap">
+            @foreach (var country in Model.Countries)
+            {
+                <div class="m-3 text-center">
+                    <img src="~/images/flags/@country.FlagImage"
+                         width="120"
+                         title="@country.Name - @country.Game.Name - @country.Category.Name" />
+                    <div>@country.Name</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
