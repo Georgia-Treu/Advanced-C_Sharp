@@ -11,6 +11,14 @@ namespace OlympicGamesWebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(5);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             // Add EF Core DI
             builder.Services.AddDbContext<CountryContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CountryContext")));
@@ -28,7 +36,8 @@ namespace OlympicGamesWebApp
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
+            app.UseSession();
             app.UseAuthorization();
 
             app.MapStaticAssets();

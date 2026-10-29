@@ -51,10 +51,13 @@
             @foreach (var country in Model.Countries)
             {
                 <div class="m-3 text-center">
-                    <img src="~/images/flags/@country.FlagImage"
-                         width="120"
-                         title="@country.Name - @country.Game.Name - @country.Category.Name" />
-                    <div>@country.Name</div>
+                    <a asp-action="Details" asp-route-id="@country.CountryID">
+                        <img src="~/images/flags/@country.FlagImage"
+                             width="120"
+                             title="@country.Name - @country.Game.Name - @country.Category.Name" />
+                    </a>                       
+                    
+                     <div>@country.Name</div>
                 </div>
             }
         </div>

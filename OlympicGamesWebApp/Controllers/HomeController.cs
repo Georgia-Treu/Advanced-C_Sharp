@@ -16,6 +16,25 @@ namespace OlympicGamesWebApp.Controllers
         
         public IActionResult Index(string game = "all", string category = "all")
         {
+            var session = new OlympicSession(HttpContext.Session);
+
+            session.SetActiveGame(game);
+            session.SetActiveCategory(category);
+
+            int? count = session.GetFavoriteCount();
+
+            if (!count.HasValue)
+            {
+                var cookies = new OlympicCookies(Request.Cookies);
+                string[] ids = cookies.GetMyCountryIds();
+
+                if (ids.Length > 0)
+                {
+                    var countries = context.Countries.Include(c => c.Game).Include(c => c.Category).Where(c => ids.Contains(c.CountryID)).ToList();
+                    session.SetFavoriteCountries(countries);
+                }
+            }
+            
             var vm = new CountriesViewModel
             {
                 ActiveGame = game,
@@ -36,6 +55,21 @@ namespace OlympicGamesWebApp.Controllers
           
             
             return View(vm);
+        }
+
+        public IActionResult Details(string id)
+        {
+            var session = new OlympicSession(HttpContext.Session);
+
+            var model = new CountriesViewModel
+            {
+                Country = context.Countries.Include(c => c.Game).Include(c => c.Category).FirstOrDefault(c => c.CountryID == id) ?? new Country(),
+
+                ActiveGame = session.GetActiveGame(),
+                ActiveCategory = session.GetActiveCategory()
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()

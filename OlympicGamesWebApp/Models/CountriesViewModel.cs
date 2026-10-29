@@ -4,6 +4,7 @@ namespace OlympicGamesWebApp.Models
 {
     public class CountriesViewModel
     {
+        public Country Country { get; set;  } = new Country();
         public string ActiveGame { get; set; } = "all";
         public string ActiveCategory { get; set; } = "all";
 
