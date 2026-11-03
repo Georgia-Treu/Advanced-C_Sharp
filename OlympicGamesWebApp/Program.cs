@@ -41,6 +41,10 @@ namespace OlympicGamesWebApp
             app.UseAuthorization();
 
             app.MapStaticAssets();
+
+            app.MapControllerRoute(
+                name: "filter",
+                pattern: "{controller=Home}/{action=Index}/{ActiveGame=all}/{ActiveCategory=all}");
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")

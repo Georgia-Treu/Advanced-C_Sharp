@@ -9,16 +9,16 @@
         <h4>Games</h4>
         <div class="list-group">
             <a asp-action="Index"
-               asp-route-game="all"
-               asp-route-category="@Model.ActiveCategory"
+               asp-route-ActiveGame="all"
+               asp-route-ActiveCategory="@Model.ActiveCategory"
                class="list-group-item @Model.CheckActiveGame("all")">
                 ALL
             </a>
             @foreach (var g in Model.Games)
             {
                 <a asp-action="Index"
-                   asp-route-game="@g.GameID"
-                   asp-route-category="@Model.ActiveCategory"
+                   asp-route-ActiveGame="@g.GameID"
+                   asp-route-ActiveCategory="@Model.ActiveCategory"
                    class="list-group-item @Model.CheckActiveGame(g.GameID)">
                     @g.Name
                 </a>
@@ -28,16 +28,16 @@
         <h4 class="mt-4">Categories</h4>
         <div class="list-group">
             <a asp-action="Index"
-               asp-route-game="@Model.ActiveGame"
-               asp-route-category="all"
+               asp-route-ActiveGame="@Model.ActiveGame"
+               asp-route-ActiveCategory="all"
                class="list-group-item @Model.CheckActiveCategory("all")">
                 ALL
             </a>
             @foreach (var c in Model.Categories)
             {
                 <a asp-action="Index"
-                   asp-route-game="@Model.ActiveGame"
-                   asp-route-category="@c.CategoryID"
+                   asp-route-ActiveGame="@Model.ActiveGame"
+                   asp-route-ActiveCategory="@c.CategoryID"
                    class="list-group-item @Model.CheckActiveCategory(c.CategoryID)">
                     @c.Name
                 </a>

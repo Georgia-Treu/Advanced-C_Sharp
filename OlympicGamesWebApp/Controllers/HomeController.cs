@@ -14,12 +14,12 @@ namespace OlympicGamesWebApp.Controllers
             context = ctx;
         }
         
-        public IActionResult Index(string game = "all", string category = "all")
+        public IActionResult Index([FromRoute] CountriesViewModel model)
         {
             var session = new OlympicSession(HttpContext.Session);
 
-            session.SetActiveGame(game);
-            session.SetActiveCategory(category);
+            session.SetActiveGame(model.ActiveGame);
+            session.SetActiveCategory(model.ActiveCategory);
 
             int? count = session.GetFavoriteCount();
 
@@ -37,19 +37,19 @@ namespace OlympicGamesWebApp.Controllers
             
             var vm = new CountriesViewModel
             {
-                ActiveGame = game,
-                ActiveCategory = category,
+                ActiveGame = model.ActiveGame,
+                ActiveCategory = model.ActiveCategory,
                 Games = context.Games.OrderBy(g => g.Name).ToList(),
                 Categories = context.Categories.OrderBy(c => c.Name).ToList()
             };
 
             IQueryable<Country> query = context.Countries.Include(c => c.Game).Include(c => c.Category);
 
-            if (game != "all")
-                query = query.Where(c => c.GameID == game);
+            if (model.ActiveGame != "all")
+                query = query.Where(c => c.GameID == model.ActiveGame);
 
-            if (category != "all")
-                query = query.Where(c => c.CategoryID == category);
+            if (model.ActiveCategory != "all")
+                query = query.Where(c => c.CategoryID == model.ActiveCategory);
 
             vm.Countries = query.OrderBy(c => c.Name).ToList();
           

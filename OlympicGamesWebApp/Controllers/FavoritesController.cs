@@ -27,25 +27,25 @@ namespace OlympicGamesWebApp.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Add(Country country)
+        public RedirectToActionResult Add(CountriesViewModel model)
         {
-            country = context.Countries.Include(c => c.Game).Include(c => c.Category).Where(c => c.CountryID == country.CountryID).FirstOrDefault() ?? new Country();
+            model.Country = context.Countries.Include(c => c.Game).Include(c => c.Category).Where(c => c.CountryID == model.Country.CountryID).FirstOrDefault() ?? new Country();
 
             var session = new OlympicSession(HttpContext.Session);
             var cookies = new OlympicCookies(Response.Cookies);
             var countries = session.GetFavoriteCountries();
 
-            countries.Add(country);
+            countries.Add(model.Country);
 
             session.SetFavoriteCountries(countries);
             cookies.SetMyCountryIds(countries);
 
-            TempData["message"] = $"{country.Name} added to favorites";
+            TempData["message"] = $"{model.Country.Name} added to favorites";
 
             return RedirectToAction("Index", "Home", new
             {
-                game = session.GetActiveGame(),
-                category = session.GetActiveCategory()
+                ActiveGame = session.GetActiveGame(),
+                ActiveCategory = session.GetActiveCategory()
             });
         }
 
@@ -62,8 +62,8 @@ namespace OlympicGamesWebApp.Controllers
 
             return RedirectToAction("Index", "Home", new
             {
-                game = session.GetActiveGame(),
-                category = session.GetActiveCategory()
+                ActiveGame = session.GetActiveGame(),
+                ActiveCategory = session.GetActiveCategory()
             });
         }
     }
