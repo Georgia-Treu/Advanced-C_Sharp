@@ -34,7 +34,7 @@ namespace ToDoList.Controllers
         public IActionResult Add()
         {            
             ViewBag.Statuses = context.Statuses.ToList();
-            var ticket = new Ticket { StatusId = "todo" };
+            var ticket = new Ticket();
             return View(ticket);
         }
 

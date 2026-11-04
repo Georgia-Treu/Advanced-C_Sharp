@@ -5,6 +5,7 @@
     initial-scale=1.0" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
     <title>Tickets System</title>
 </head>
 <body>
@@ -16,5 +17,7 @@
             @RenderBody()
         </main>
     </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
