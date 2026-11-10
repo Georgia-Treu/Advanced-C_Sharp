@@ -8,14 +8,21 @@ namespace ToDoList.Controllers
     public class HomeController : Controller
     {
         private TicketContext context;
-        public HomeController(TicketContext ctx) => context = ctx;
+        private Repository<Ticket> ticketData;
+        private Repository<Status> statusData;
+        public HomeController(TicketContext ctx) 
+        {
+            context = ctx;
+            ticketData = new Repository<Ticket>(ctx);
+            statusData = new Repository<Status>(ctx);
+        }
 
         public IActionResult Index(string id)
         {
             var filters = new Filters(id);
 
             ViewBag.Filters = filters;
-            ViewBag.Statuses = context.Statuses.ToList();            
+            ViewBag.Statuses = statusData.List();            
 
             IQueryable<Ticket> query = context.Tickets
                 .Include(t => t.Status); 
@@ -33,7 +40,7 @@ namespace ToDoList.Controllers
         [HttpGet]
         public IActionResult Add()
         {            
-            ViewBag.Statuses = context.Statuses.ToList();
+            ViewBag.Statuses = statusData.List();
             var ticket = new Ticket();
             return View(ticket);
         }
@@ -43,13 +50,13 @@ namespace ToDoList.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Tickets.Add(ticket);
-                context.SaveChanges();
+                ticketData.Insert(ticket);
+                ticketData.Save();
                 return RedirectToAction("Index");
             }
             else
             {                
-                ViewBag.Statuses = context.Statuses.ToList();
+                ViewBag.Statuses = statusData.List();
                 return View(ticket);
             }
         }
@@ -63,11 +70,11 @@ namespace ToDoList.Controllers
         [HttpPost]
         public IActionResult MarkDone([FromRoute] string id, Ticket selected)
         {
-            selected = context.Tickets.Find(selected.Id)!;
+            selected = ticketData.Get(selected.Id)!;
             if (selected != null)
             {
                 selected.StatusId = "done";
-                context.SaveChanges();
+                ticketData.Save();
             }
             return RedirectToAction("Index", new {id = id});
         }

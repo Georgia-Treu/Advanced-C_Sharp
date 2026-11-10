@@ -67,11 +67,13 @@ namespace ToDoList.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("PointValue")
                         .HasColumnType("int");
@@ -88,6 +90,26 @@ namespace ToDoList.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Tickets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 10,
+                            Description = "Create login page",
+                            Name = "Login Page",
+                            PointValue = 3,
+                            SprintNumber = 1,
+                            StatusId = "todo"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Create grocery list",
+                            Name = "Shopping",
+                            PointValue = 8,
+                            SprintNumber = 2,
+                            StatusId = "inprogress"
+                        });
                 });
 
             modelBuilder.Entity("ToDoList.Models.Ticket", b =>
