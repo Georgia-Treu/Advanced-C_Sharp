@@ -2,7 +2,7 @@
 
 namespace ToDoList.Models
 {
-    public class Repository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         protected TicketContext context { get; set; }
         private DbSet<T> dbset { get; set; }

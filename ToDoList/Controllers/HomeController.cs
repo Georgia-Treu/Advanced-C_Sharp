@@ -8,13 +8,13 @@ namespace ToDoList.Controllers
     public class HomeController : Controller
     {
         private TicketContext context;
-        private Repository<Ticket> ticketData;
-        private Repository<Status> statusData;
-        public HomeController(TicketContext ctx) 
-        {
+        private IRepository<Ticket> ticketData;
+        private IRepository<Status> statusData;
+        public HomeController(TicketContext ctx, IRepository<Ticket> ticketRep, IRepository<Status> statusRep) 
+        {           
             context = ctx;
-            ticketData = new Repository<Ticket>(ctx);
-            statusData = new Repository<Status>(ctx);
+            ticketData = ticketRep;
+            statusData = statusRep;
         }
 
         public IActionResult Index(string id)

@@ -22,6 +22,8 @@ namespace ToDoList
             // Add EF Core DI
             builder.Services.AddDbContext<TicketContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TicketContext")));
 
+            builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
